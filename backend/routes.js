@@ -5,5 +5,6 @@ const todoController = require("./src/constrollers/TodoController")
 router.post("/todos", todoController.criarTodo)
 router.patch("/todos/:id", todoController.atualizarTodo)
 router.delete("/todos/:id", todoController.deletarTodo)
+router.get("/todos", todoController.getTodos)
 
 module.exports = router

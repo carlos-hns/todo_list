@@ -12,6 +12,10 @@ const Todo = connection.define("todo", {
         type: DataTypes.STRING,
         allowNull: false
     },
+    tipoDoTodo: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     feito: {
         type: DataTypes.BOOLEAN,
         allowNull: false
