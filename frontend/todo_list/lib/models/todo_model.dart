@@ -21,4 +21,19 @@ class TodoModel {
     data['feito'] = this.feito;
     return data;
   }
+
+  Map<String, dynamic> toResponseMap() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id.toString();
+    data['todo'] = this.todo;
+    data['tipoDoTodo'] = this.tipoDoTodo;
+    data['feito'] = this.feito.toString();
+    return data;
+  }
+
+  @override
+  String toString(){
+    return "| ${this.id} | ${this.todo} | ${this.tipoDoTodo} | ${this.feito} |\n";
+  }
+
 }

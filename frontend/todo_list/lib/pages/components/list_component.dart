@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class ListComponent extends StatelessWidget {
 
+  final int indexOnDatabase;
   final bool feito;
   final String todo;
-  ListComponent({this.feito, this.todo});
+  ListComponent({this.feito, this.todo, this.indexOnDatabase});
 
   @override
   Widget build(BuildContext context) {

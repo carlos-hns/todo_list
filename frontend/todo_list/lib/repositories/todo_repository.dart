@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class TodoRepository {
 
-  final _URL_BASE = "http://localhost:8080/todos";
+  static const _URL_BASE = "http://localhost:8080/todos";
 
   Future<List<TodoModel>> _getTodosByUrl(String url) async {
     final response = await http.get(url);
@@ -37,5 +37,23 @@ class TodoRepository {
 
   Future<List<TodoModel>> getTodos({String tipoDoTodo, String filtro}) 
       =>  _getTodosByUrl(_getUrl(tipoDoTodo: tipoDoTodo, filtro: filtro));
-      
+  
+
+  Future<String> createTodo(TodoModel todo) async {
+    final response = await http.post(_URL_BASE, body: todo.toResponseMap());
+    return response.body;
+  }
+
+  Future<String> deleteTodoById(int id) async {
+    String newUrl = "$_URL_BASE/$id";
+    final response = await http.delete(newUrl);
+    return response.body;
+  }
+
+  Future<String> updateTodo(TodoModel todo) async {
+    String newUrl = "$_URL_BASE/${todo.id}";
+    final response = await http.patch(newUrl, body: todo.toResponseMap());
+    return response.body;
+  }
+
 }

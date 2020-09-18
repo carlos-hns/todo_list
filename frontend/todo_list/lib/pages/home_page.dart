@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/pages/components/roundedContainer.dart';
+import 'package:todo_list/stores/todo_store.dart';
 
-import 'components/costom_textfield.dart';
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
 
-class HomePage extends StatelessWidget {
+class _HomePageState extends State<HomePage> {
+  
+  TodoStore todoStore = TodoStore();
+
+  @override
+  void initState() {
+    super.initState();
+    todoStore.setItensDiarios().then((value) => print("Ok"));//print(todoStore.todosDiarios));
+  }
+  
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -28,27 +41,31 @@ class HomePage extends StatelessWidget {
             height: 30,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              RoundedContainer(
+              ItemContainer(
                 border: BorderRadius.only(
                   bottomRight: Radius.circular(50),
                   topLeft: Radius.circular(50),
                 ),
                 width: width,
                 height: height,
+                searchHintText: "Dia",
               ),
-              RoundedContainer(
+              ItemContainer(
                 border: BorderRadius.circular(9),
                 width: width,
                 height: height,
+                searchHintText: "Semana",
               ),
-              RoundedContainer(
+              ItemContainer(
                 border: BorderRadius.only(
                   bottomLeft: Radius.circular(50),
                   topRight: Radius.circular(50),
                 ),
                 width: width,
                 height: height,
+                searchHintText: "Mês",
               ),
             ],
           ),
