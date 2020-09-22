@@ -12,98 +12,118 @@ mixin _$TodoStore on _TodoStoreBase, Store {
   final _$todosDiariosAtom = Atom(name: '_TodoStoreBase.todosDiarios');
 
   @override
-  ObservableList<dynamic> get todosDiarios {
+  ObservableList<TodoModel> get todosDiarios {
     _$todosDiariosAtom.reportRead();
     return super.todosDiarios;
   }
 
   @override
-  set todosDiarios(ObservableList<dynamic> value) {
+  set todosDiarios(ObservableList<TodoModel> value) {
     _$todosDiariosAtom.reportWrite(value, super.todosDiarios, () {
       super.todosDiarios = value;
     });
   }
 
-  final _$todosSemanaisAtom = Atom(name: '_TodoStoreBase.todosSemanais');
+  final _$addItemDiarioAsyncAction =
+      AsyncAction('_TodoStoreBase.addItemDiario');
 
   @override
-  ObservableList<dynamic> get todosSemanais {
-    _$todosSemanaisAtom.reportRead();
-    return super.todosSemanais;
+  Future<void> addItemDiario(TodoModel todo) {
+    return _$addItemDiarioAsyncAction.run(() => super.addItemDiario(todo));
   }
 
-  @override
-  set todosSemanais(ObservableList<dynamic> value) {
-    _$todosSemanaisAtom.reportWrite(value, super.todosSemanais, () {
-      super.todosSemanais = value;
-    });
-  }
-
-  final _$todosMensaisAtom = Atom(name: '_TodoStoreBase.todosMensais');
+  final _$updateItemDiarioAsyncAction =
+      AsyncAction('_TodoStoreBase.updateItemDiario');
 
   @override
-  ObservableList<dynamic> get todosMensais {
-    _$todosMensaisAtom.reportRead();
-    return super.todosMensais;
-  }
-
-  @override
-  set todosMensais(ObservableList<dynamic> value) {
-    _$todosMensaisAtom.reportWrite(value, super.todosMensais, () {
-      super.todosMensais = value;
-    });
+  Future<void> updateItemDiario(int arrayIndex, TodoModel todo) {
+    return _$updateItemDiarioAsyncAction
+        .run(() => super.updateItemDiario(arrayIndex, todo));
   }
 
   final _$setItensDiariosAsyncAction =
       AsyncAction('_TodoStoreBase.setItensDiarios');
 
   @override
-  Future<void> setItensDiarios() {
-    return _$setItensDiariosAsyncAction.run(() => super.setItensDiarios());
+  Future<void> setItensDiarios({String filtro}) {
+    return _$setItensDiariosAsyncAction
+        .run(() => super.setItensDiarios(filtro: filtro));
   }
 
-  final _$_TodoStoreBaseActionController =
-      ActionController(name: '_TodoStoreBase');
+  final _$addItemSemanalAsyncAction =
+      AsyncAction('_TodoStoreBase.addItemSemanal');
 
   @override
-  void addItemDiario(int index, TodoModel todo) {
-    final _$actionInfo = _$_TodoStoreBaseActionController.startAction(
-        name: '_TodoStoreBase.addItemDiario');
-    try {
-      return super.addItemDiario(index, todo);
-    } finally {
-      _$_TodoStoreBaseActionController.endAction(_$actionInfo);
-    }
+  Future<void> addItemSemanal(TodoModel todo) {
+    return _$addItemSemanalAsyncAction.run(() => super.addItemSemanal(todo));
   }
 
-  @override
-  void removeItemDiario(int index) {
-    final _$actionInfo = _$_TodoStoreBaseActionController.startAction(
-        name: '_TodoStoreBase.removeItemDiario');
-    try {
-      return super.removeItemDiario(index);
-    } finally {
-      _$_TodoStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
+  final _$removeItemSemanalAsyncAction =
+      AsyncAction('_TodoStoreBase.removeItemSemanal');
 
   @override
-  void updateItemDiario(int index, TodoModel todo) {
-    final _$actionInfo = _$_TodoStoreBaseActionController.startAction(
-        name: '_TodoStoreBase.updateItemDiario');
-    try {
-      return super.updateItemDiario(index, todo);
-    } finally {
-      _$_TodoStoreBaseActionController.endAction(_$actionInfo);
-    }
+  Future<void> removeItemSemanal(int arrayIndex, TodoModel todo) {
+    return _$removeItemSemanalAsyncAction
+        .run(() => super.removeItemSemanal(arrayIndex, todo));
+  }
+
+  final _$updateItemSemanalAsyncAction =
+      AsyncAction('_TodoStoreBase.updateItemSemanal');
+
+  @override
+  Future<void> updateItemSemanal(int arrayIndex, TodoModel todo) {
+    return _$updateItemSemanalAsyncAction
+        .run(() => super.updateItemSemanal(arrayIndex, todo));
+  }
+
+  final _$setItensSemanaisAsyncAction =
+      AsyncAction('_TodoStoreBase.setItensSemanais');
+
+  @override
+  Future<void> setItensSemanais({String filtro}) {
+    return _$setItensSemanaisAsyncAction
+        .run(() => super.setItensSemanais(filtro: filtro));
+  }
+
+  final _$addItemMensalAsyncAction =
+      AsyncAction('_TodoStoreBase.addItemMensal');
+
+  @override
+  Future<void> addItemMensal(TodoModel todo) {
+    return _$addItemMensalAsyncAction.run(() => super.addItemMensal(todo));
+  }
+
+  final _$removeItemMensalAsyncAction =
+      AsyncAction('_TodoStoreBase.removeItemMensal');
+
+  @override
+  Future<void> removeItemMensal(int arrayIndex, TodoModel todo) {
+    return _$removeItemMensalAsyncAction
+        .run(() => super.removeItemMensal(arrayIndex, todo));
+  }
+
+  final _$updateItemMensalAsyncAction =
+      AsyncAction('_TodoStoreBase.updateItemMensal');
+
+  @override
+  Future<void> updateItemMensal(int arrayIndex, TodoModel todo) {
+    return _$updateItemMensalAsyncAction
+        .run(() => super.updateItemMensal(arrayIndex, todo));
+  }
+
+  final _$setItensMensaisAsyncAction =
+      AsyncAction('_TodoStoreBase.setItensMensais');
+
+  @override
+  Future<void> setItensMensais({String filtro}) {
+    return _$setItensMensaisAsyncAction
+        .run(() => super.setItensMensais(filtro: filtro));
   }
 
   @override
   String toString() {
     return '''
-todosDiarios: ${todosDiarios},
-todosSemanais: ${todosSemanais},
-todosMensais: ${todosMensais}
+todosDiarios: ${todosDiarios}
     ''';
   }
 }

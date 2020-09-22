@@ -6,6 +6,8 @@ import 'package:todo_list/stores/todo_store.dart';
 
 import 'costom_textfield.dart';
 
+TodoStore todoStore = TodoStore();
+
 class ItemContainer extends StatefulWidget {
   String searchHintText;
   BorderRadius border;
@@ -21,25 +23,9 @@ class _ItemContainerState extends State<ItemContainer> {
   @override
   void initState() {
     super.initState();
-    choiceList();
-  }
-
-  final todoStore = TodoStore();
-  var _choicedList;
-
-  void choiceList() {
-    switch (widget.searchHintText) {
-      case "Dia":
-        _choicedList = todoStore.todosDiarios;
-        print(_choicedList);
-        break;
-      case "Semana":
-        _choicedList = todoStore.todosSemanais;
-        break;
-      case "Mês":
-        _choicedList = todoStore.todosSemanais;
-        break;
-    }
+    todoStore.setItensDiarios();
+    todoStore.setItensSemanais();
+    todoStore.setItensMensais();
   }
 
   @override
@@ -63,19 +49,45 @@ class _ItemContainerState extends State<ItemContainer> {
             ),
             Expanded(
               child: Container(
-                child: Observer(builder: (context) {
-                  return ListView.builder(
-                    itemCount: _choicedList.length,
-                    itemBuilder: (context, index) {
-                      TodoModel todo = _choicedList[index];
-                      return ListComponent(
-                        feito: todo.feito,
-                        todo: todo.todo,
-                        indexOnDatabase: todo.id,
+                padding: EdgeInsets.only(bottom: 50),
+                child: Observer(
+                  builder: (context) {
+                    if (widget.searchHintText == "Dia") {
+                      return ListView.builder(
+                        itemCount: todoStore.todosDiarios.length,
+                        itemBuilder: (context, index) {
+                          TodoModel todo = todoStore.todosDiarios[index];
+                          return ListComponent(
+                            arrayIndex: index,
+                            todo: todo,
+                          );
+                        },
                       );
-                    },
-                  );
-                }),
+                    } else if (widget.searchHintText == "Semana") {
+                      return ListView.builder(
+                        itemCount: todoStore.todosSemanais.length,
+                        itemBuilder: (context, index) {
+                          TodoModel todo = todoStore.todosSemanais[index];
+                          return ListComponent(
+                            arrayIndex: index,
+                            todo: todo,
+                          );
+                        },
+                      );
+                    } else {
+                      return ListView.builder(
+                        itemCount: todoStore.todosMensais.length,
+                        itemBuilder: (context, index) {
+                          TodoModel todo = todoStore.todosMensais[index];
+                          return ListComponent(
+                            arrayIndex: index,
+                            todo: todo,
+                          );
+                        },
+                      );
+                    }
+                  },
+                ),
               ),
             ),
           ],

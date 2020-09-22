@@ -1,22 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/pages/components/roundedContainer.dart';
-import 'package:todo_list/stores/todo_store.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  
-  TodoStore todoStore = TodoStore();
-
-  @override
-  void initState() {
-    super.initState();
-    todoStore.setItensDiarios().then((value) => print("Ok"));//print(todoStore.todosDiarios));
-  }
-  
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;

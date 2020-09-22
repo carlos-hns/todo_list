@@ -1,16 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/models/todo_model.dart';
+import 'package:todo_list/stores/todo_store.dart';
+
+TodoStore todoStore = TodoStore();
 
 class ListComponent extends StatelessWidget {
-
-  final int indexOnDatabase;
-  final bool feito;
-  final String todo;
-  ListComponent({this.feito, this.todo, this.indexOnDatabase});
+  
+  int arrayIndex;
+  TodoModel todo;
+  ListComponent({TodoModel this.todo, this.arrayIndex});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () async {
+        todo.feito = !todo.feito;
+        switch (todo.tipoDoTodo) {
+          case "diario":
+            await todoStore.updateItemDiario(arrayIndex, todo);
+            break;
+          case "semanal":
+            await todoStore.updateItemSemanal(arrayIndex, todo);
+            break;
+          case "mensal":
+            await todoStore.updateItemMensal(arrayIndex, todo);
+            break;
+        }
+      },
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
@@ -25,7 +41,7 @@ class ListComponent extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                this.todo,
+                this.todo.todo,
                 style: TextStyle(
                   color: Colors.grey[700],
                   fontFamily: "Abel",
@@ -36,10 +52,25 @@ class ListComponent extends StatelessWidget {
               width: 30,
             ),
             CircleAvatar(
-              backgroundColor: this.feito ? Colors.green : Colors.orange,
+              backgroundColor: this.todo.feito ? Colors.green : Colors.orange,
               radius: 8,
             ),
-            IconButton(icon: Icon(Icons.delete), onPressed: () {}),
+            IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () async {
+                switch (todo.tipoDoTodo) {
+                  case "diario":
+                    await todoStore.removeItemDiario(arrayIndex, todo);
+                    break;
+                  case "semanal":
+                    await todoStore.removeItemSemanal(arrayIndex, todo);
+                    break;
+                  case "mensal":
+                    await todoStore.removeItemMensal(arrayIndex, todo);
+                    break;
+                }
+              },
+            ),
           ],
         ),
       ),
